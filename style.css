@@ -340,14 +340,14 @@ footer {
 
 /* 3D Cube styles */
 .scene {
-  width: 80px;
-  height: 80px;
   position: fixed;
-  bottom: 20px;
+  top: 20px;
   right: 20px;
+  width: 150px;  /* taille du cube */
+  height: 150px;
   perspective: 800px;
-  user-select: none;
-  z-index: 9999;
+  cursor: grab;
+  z-index: 9999; /* pour être au-dessus */
 }
 
 .cube {
