@@ -17,7 +17,6 @@ function animate() {
   cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
   requestAnimationFrame(animate);
 }
-
 animate();
 
 cube.addEventListener('mousedown', (e) => {
