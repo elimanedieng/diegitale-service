@@ -340,16 +340,34 @@ footer {
 
 /* 3D Cube styles */
 .scene {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
   width: 80px;
   height: 80px;
   perspective: 400px;
-  position: fixed;
-  top: 20px;
-  left: 20px;
   z-index: 1;
   opacity: 0.4;
   pointer-events: none;
+
+  animation: moveCube 10s ease-in-out infinite;
 }
+
+@keyframes moveCube {
+  0% {
+    left: 20px;
+    bottom: 20px;
+  }
+  50% {
+    left: calc(100% - 100px); /* Déplacement vers la droite */
+    bottom: 20px;
+  }
+  100% {
+    left: 20px;
+    bottom: 20px;
+  }
+}
+
 
 
 .cube {
