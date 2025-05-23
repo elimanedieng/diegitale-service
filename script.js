@@ -1,13 +1,12 @@
 const cube = document.querySelector('.cube');
 let isDragging = false;
 let lastX, lastY;
-let rotationX = 0;
-let rotationY = 0;
+let rotationX = 25;
+let rotationY = 45;
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-// Animation automatique
-let autoRotateSpeed = 0.3; // deg per frame approx
+let autoRotateSpeed = 0.3;
 let autoRotate = true;
 
 function animate() {
@@ -21,7 +20,6 @@ function animate() {
 
 animate();
 
-// Drag rotation
 cube.addEventListener('mousedown', (e) => {
   isDragging = true;
   lastX = e.clientX;
