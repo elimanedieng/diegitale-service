@@ -33,3 +33,33 @@ window.addEventListener('mousemove', (e) => {
   lastX = e.clientX;
   lastY = e.clientY;
 });
+const scene = document.querySelector('.scene');
+let isDragging = false;
+let startX, startY, initialLeft, initialTop;
+
+scene.style.position = 'fixed';  // pour être sûr
+
+scene.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+  const rect = scene.getBoundingClientRect();
+  initialLeft = rect.left;
+  initialTop = rect.top;
+  scene.style.cursor = 'grabbing';
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  let dx = e.clientX - startX;
+  let dy = e.clientY - startY;
+  scene.style.left = initialLeft + dx + 'px';
+  scene.style.top = initialTop + dy + 'px';
+});
+
+window.addEventListener('mouseup', () => {
+  if (isDragging) {
+    isDragging = false;
+    scene.style.cursor = 'grab';
+  }
+});
