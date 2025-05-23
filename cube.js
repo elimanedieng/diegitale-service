@@ -1,47 +1,34 @@
+// Optionnel: Permettre de contrôler le cube avec la souris
+
 const cube = document.querySelector('.cube');
 let isDragging = false;
-let lastX, lastY;
-let rotationX = 25;
-let rotationY = 45;
+let previousX, previousY;
+let rotationX = 0;
+let rotationY = 0;
 
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+cube.style.animationPlayState = 'running';
 
-let autoRotateSpeed = 0.3;
-let autoRotate = true;
-
-function animate() {
-  if (autoRotate && !isDragging) {
-    rotationX += autoRotateSpeed;
-    rotationY += autoRotateSpeed;
-  }
-  cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
-  requestAnimationFrame(animate);
-}
-animate();
-
-cube.addEventListener('mousedown', (e) => {
+cube.addEventListener('mousedown', e => {
   isDragging = true;
-  lastX = e.clientX;
-  lastY = e.clientY;
-  autoRotate = false;
+  cube.style.animationPlayState = 'paused';
+  previousX = e.clientX;
+  previousY = e.clientY;
   cube.style.cursor = 'grabbing';
 });
 
-window.addEventListener('mouseup', () => {
-  if (isDragging) {
-    isDragging = false;
-    autoRotate = true;
-    cube.style.cursor = 'grab';
-  }
+window.addEventListener('mouseup', e => {
+  isDragging = false;
+  cube.style.animationPlayState = 'running';
+  cube.style.cursor = 'grab';
 });
 
-window.addEventListener('mousemove', (e) => {
+window.addEventListener('mousemove', e => {
   if (!isDragging) return;
-  const deltaX = e.clientX - lastX;
-  const deltaY = e.clientY - lastY;
+  const deltaX = e.clientX - previousX;
+  const deltaY = e.clientY - previousY;
   rotationY += deltaX * 0.5;
   rotationX -= deltaY * 0.5;
-  rotationX = clamp(rotationX, -90, 90);
-  lastX = e.clientX;
-  lastY = e.clientY;
+  cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+  previousX = e.clientX;
+  previousY = e.clientY;
 });
