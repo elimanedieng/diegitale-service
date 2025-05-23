@@ -1,26 +1,26 @@
-// Simple interaction for cube rotation on mouse move
 const cube = document.querySelector('.cube');
 const scene = document.querySelector('.scene');
 
 let rotationX = 0;
 let rotationY = 0;
-let isDragging = false;
+let isRotating = false;
 let lastX, lastY;
 
+// Rotation du cube à la souris
 scene.addEventListener('mousedown', (e) => {
-  isDragging = true;
+  isRotating = true;
   lastX = e.clientX;
   lastY = e.clientY;
   cube.style.animationPlayState = 'paused';
 });
 
 window.addEventListener('mouseup', () => {
-  isDragging = false;
+  isRotating = false;
   cube.style.animationPlayState = 'running';
 });
 
 window.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
+  if (!isRotating) return;
 
   let deltaX = e.clientX - lastX;
   let deltaY = e.clientY - lastY;
@@ -33,20 +33,26 @@ window.addEventListener('mousemove', (e) => {
   lastX = e.clientX;
   lastY = e.clientY;
 });
-const scene = document.querySelector('.scene');
+
+// Déplacement de la scène
 let isDragging = false;
 let startX, startY, initialLeft, initialTop;
 
-scene.style.position = 'fixed';  // pour être sûr
+scene.style.position = 'fixed';
+scene.style.cursor = 'grab';
+
+scene.addEventListener('contextmenu', (e) => e.preventDefault()); // empêche clic droit
 
 scene.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.clientX;
-  startY = e.clientY;
-  const rect = scene.getBoundingClientRect();
-  initialLeft = rect.left;
-  initialTop = rect.top;
-  scene.style.cursor = 'grabbing';
+  if (e.button === 2) { // clic droit pour déplacer
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    const rect = scene.getBoundingClientRect();
+    initialLeft = rect.left;
+    initialTop = rect.top;
+    scene.style.cursor = 'grabbing';
+  }
 });
 
 window.addEventListener('mousemove', (e) => {
